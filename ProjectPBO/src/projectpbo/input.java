@@ -2,7 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+package projectpbo;
+
+import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.util.HashMap;
+import java.util.Map;
+import projectpbo.ProjectPBO;
 
 /**
  *
@@ -10,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class input extends javax.swing.JFrame {
     String input;
-    
+    String kata = "lolok";
     
     /**
      * Creates new form input
@@ -140,6 +147,13 @@ public class input extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         input= t1.getText();
+         Map<String, Component> variableMap = new HashMap<>();
+        variableMap.put("b1", b1);
+        variableMap.put("b2", b2);
+        variableMap.put("b3", b3);
+        variableMap.put("b4", b4);
+        variableMap.put("b5", b5);
+        
         
         
         if(input.length()>5){
@@ -152,12 +166,72 @@ public class input extends javax.swing.JFrame {
             b3.setText(input.charAt(2)+"");
             b4.setText(input.charAt(3)+"");
             b5.setText(input.charAt(4)+"");
-        }
-        
-        
+            if (input.equalsIgnoreCase(kata)){
+                //clear
+                JOptionPane.showMessageDialog(rootPane, "berhasil menebak dengn benar");
+            }
+            else {
+                ArrayList <Object[]> showValidation = this.valid(input);
+                for(Object[] obj : showValidation){
+                    Component button = variableMap.get((String)obj[0]);
+                    if((int) obj[2] == 1){
+                        System.out.printf("kata %s terkandung disini %n", (char) obj[1]);
+                        button.setEnabled(false);
+                    }
+                    if((int) obj[2] == 2){
+                        System.out.printf("kata %s benar posisinya %n", (char) obj[1]);
+                        button.setEnabled(false);
+                    }
+                }
+                
+                ProjectPBO.user.minusOnePoint();
+                System.out.println(ProjectPBO.user.getAttempt());
+            }
+
+        }   
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
+    public ArrayList<Object[]> valid(String input){
+        String kataInput = input;
+        ArrayList<Object[]> arrayOfCheck = new ArrayList<>(); //object[buttonNumber, char, code label(1,2,3)]
+        for(int i = 0 ; i < 5 ; i++){
+            int codeHint = 0;
+            boolean isMoreThanOne = false;
+                
+            //checker more than one
+            for(Object[] obj : arrayOfCheck){
+                char huruf = (char) obj[1];
+                if(huruf == kataInput.charAt(i)){
+                    isMoreThanOne = true;
+                    break;
+                }
+            }
+            
+            if(!isMoreThanOne){
+                if(this.kata.contains(String.valueOf(kataInput.charAt(i)))){
+                    codeHint = 1;
+                }
+            }
+            
+            //indicates the char correct position
+            if(this.kata.charAt(i) == kataInput.charAt(i)) {
+                codeHint = 2;
+            }
+            
+            if(codeHint != 0){
+                Object array[] = {"b"+(i+1), kataInput.charAt(i), codeHint};
+                arrayOfCheck.add(array);
+            }
+        }
+        return arrayOfCheck;
+    }
+    
+    public void checkingOther(String kataInput){
+        
+        
+        
+    }
 
     private void t1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t1ActionPerformed
         // TODO add your handling code here:
