@@ -14,6 +14,7 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.LineBorder;
 
 
 /**
@@ -156,7 +157,7 @@ public class input extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         input= t1.getText();
-         Map<String, Component> variableMap = new HashMap<>();
+         Map<String, JLabel> variableMap = new HashMap<>();
         variableMap.put("in1", in1);
         variableMap.put("in2", in2);
         variableMap.put("in3", in3);
@@ -183,19 +184,21 @@ public class input extends javax.swing.JFrame {
             else {
                 ArrayList <Object[]> showValidation = this.valid(input);
                 for(Object[] obj : showValidation){
-                    Component input = variableMap.get((String)obj[0]);
+                    JLabel input = variableMap.get((String)obj[0]);
                     if((int) obj[2] == 1){
                         System.out.printf("kata %s terkandung disini %n", (char) obj[1]);
                         // set input to yellow color
+                        input.setBorder(new LineBorder(Color.YELLOW));
                     }
                     if((int) obj[2] == 2){
                         System.out.printf("kata %s benar posisinya %n", (char) obj[1]);
                         // set input to green color
+                        input.setBorder(new LineBorder(Color.GREEN));
                     }
                 }
                 
-                ProjectPBO.user.minusOnePoint();
-                System.out.println(ProjectPBO.user.getAttempt());
+//                ProjectPBO.user.minusOnePoint();
+//                System.out.println(ProjectPBO.user.getAttempt());
             }
         }
         
@@ -228,7 +231,7 @@ public class input extends javax.swing.JFrame {
             }
             
             if(codeHint != 0){
-                Object array[] = {"b"+(i+1), kataInput.charAt(i), codeHint};
+                Object array[] = {"in"+(i+1), kataInput.charAt(i), codeHint};
                 arrayOfCheck.add(array);
             }
         }
