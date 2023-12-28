@@ -63,6 +63,22 @@ public class input extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("KATA-NYA?");
 
+        in1.setBackground(new java.awt.Color(51, 51, 255));
+        in1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        in1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        in4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        in4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        in2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        in2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        in3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        in3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        in5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        in5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
