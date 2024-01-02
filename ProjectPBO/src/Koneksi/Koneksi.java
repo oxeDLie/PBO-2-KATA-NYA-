@@ -5,6 +5,7 @@
 package Koneksi;
 
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -22,8 +23,8 @@ public class Koneksi {
                 DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
                 koneksi = DriverManager.getConnection(url,user,pass);
                 System.out.println("koneksi sukses");
-            }catch (Exception e){
-                System.out.println("Error");
+            }catch (SQLException e){
+                System.out.println(e);
             }
         }
         return koneksi;

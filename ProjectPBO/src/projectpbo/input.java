@@ -4,16 +4,17 @@
  */
 package projectpbo;
 
-import java.awt.Component;
+import Koneksi.Koneksi;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import java.util.HashMap;
 import java.util.Map;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.*;
-import java.awt.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Random;
 import javax.swing.border.LineBorder;
 
 
@@ -22,14 +23,37 @@ import javax.swing.border.LineBorder;
  * @author user
  */
 public class input extends javax.swing.JFrame {
+    ArrayList<String> kamus = new ArrayList<>();
+    
     String input;
-    String kata = "lolok";
+    String kata = generateWord();
     
     /**
      * Creates new form input
      */
     public input() {
         initComponents();
+    }
+    
+    public String generateWord() {
+        String sql = "SELECT kata FROM kamus";
+        
+        try {
+            java.sql.Connection conn = Koneksi.getKoneksi();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            java.sql.ResultSet result = stmt.executeQuery(sql);
+            
+            while (result.next()) {
+                kamus.add(result.getString("kata"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        Random random = new Random();
+        int randomNumber = random.nextInt(kamus.size());
+        
+        return kamus.get(randomNumber);
     }
 
     /**
@@ -164,8 +188,6 @@ public class input extends javax.swing.JFrame {
         variableMap.put("in4", in4);
         variableMap.put("in5", in5);
         
-        
-        
         if(input.length()>5){
            JOptionPane.showMessageDialog(rootPane, "lebih dari 5");
         }else if(input.length()<5){
@@ -277,6 +299,7 @@ public class input extends javax.swing.JFrame {
                 new input().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

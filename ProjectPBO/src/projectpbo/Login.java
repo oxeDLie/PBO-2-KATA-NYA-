@@ -164,11 +164,11 @@ public class Login extends javax.swing.JFrame {
             String pw = pass.getText();
             User user = new User();
             try {
-                String sql = "select username, skor from akun where username = "+uname+" AND password = "+pw+"";
+                String sql = "select username, skor from akun where username = '"+uname+"' AND password = "+pw+"";
                 java.sql.Connection conn = Koneksi.getKoneksi();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 java.sql.ResultSet res = stmt.executeQuery(sql);
-                while (res.next()) {
+                while (res.next()) {    
                     user.setUser(res.getString("username"));
                     user.setSkor(res.getInt("skor"));
                 }

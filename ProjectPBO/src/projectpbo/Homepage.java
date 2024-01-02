@@ -29,6 +29,7 @@ public class Homepage extends javax.swing.JFrame {
 
         user = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        papanPeringkatButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,6 +42,13 @@ public class Homepage extends javax.swing.JFrame {
             }
         });
 
+        papanPeringkatButton.setText("Papan Peringkat");
+        papanPeringkatButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                papanPeringkatButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -50,9 +58,13 @@ public class Homepage extends javax.swing.JFrame {
                 .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
             .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(jButton1)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGap(155, 155, 155)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(papanPeringkatButton)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(25, 25, 25)))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -61,7 +73,9 @@ public class Homepage extends javax.swing.JFrame {
                 .addComponent(user)
                 .addGap(106, 106, 106)
                 .addComponent(jButton1)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(papanPeringkatButton)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         pack();
@@ -71,6 +85,11 @@ public class Homepage extends javax.swing.JFrame {
         // TODO add your handling code here:
         new input().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void papanPeringkatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_papanPeringkatButtonActionPerformed
+        // TODO add your handling code here:
+        new Leaderboard().setVisible(true);
+    }//GEN-LAST:event_papanPeringkatButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,6 +129,7 @@ public class Homepage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton papanPeringkatButton;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }
