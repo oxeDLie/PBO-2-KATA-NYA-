@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ProjectPBO">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ProjectPBO/dist/ProjectPBO.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
