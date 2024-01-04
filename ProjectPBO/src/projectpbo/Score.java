@@ -10,12 +10,13 @@ package projectpbo;
  */
 public class Score {
     private int overallScore = 0;
-    private int attempt = 6;
+    private int attempt;
     
     public Score(int overallskor){
         if(overallskor != 0){
             overallScore = overallskor;
         }
+        this.setAttempt();
     }
     
     public int getScore(){
@@ -24,6 +25,9 @@ public class Score {
     
     public int getAttempt(){
         return attempt;
+    }
+    public void setAttempt(){
+        this.attempt = 6;
     }
     public void minusOnePoint(){
         if(this.attempt > 0){

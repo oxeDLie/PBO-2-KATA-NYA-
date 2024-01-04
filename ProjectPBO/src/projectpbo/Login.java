@@ -162,18 +162,16 @@ public class Login extends javax.swing.JFrame {
         if(!(pass.getText().equalsIgnoreCase("")) && !(username.getText().equalsIgnoreCase(""))){
             String uname = username.getText();
             String pw = pass.getText();
-            User user = new User();
             try {
                 String sql = "select username, skor from akun where username = '"+uname+"' AND password = "+pw+"";
                 java.sql.Connection conn = Koneksi.getKoneksi();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 java.sql.ResultSet res = stmt.executeQuery(sql);
-                while (res.next()) {    
-                    user.setUser(res.getString("username"));
-                    user.setSkor(res.getInt("skor"));
+                if (res.next()) {    
+                    User user = new User(res.getString("username"), res.getInt("skor"));
+                    System.out.println("berhasil login dengan user " + user.getUser());
+                    ProjectPBO.user = user;
                 }
-                System.out.println("berhasil login dengan user " + user.getUser());
-                ProjectPBO.user = user;
                 new Homepage().setVisible(true);
                 this.dispose();
             } catch (HeadlessException | SQLException e) {
