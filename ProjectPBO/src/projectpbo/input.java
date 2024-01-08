@@ -568,7 +568,6 @@ public class input extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         input= t1.getText();
-        attempthere.setText(String.valueOf(this.attempt));
         Map<String, JButton> variableMap = new HashMap<>();
         JButton[] buttons = {in1, in2, in3, in4, in5, in6, in7, in8, in9, in10, in11, in12, in13, in14, in15, in16, in17, in18, in19, in20, in21, in22, in23, in24, in25, in26, in27, in28, in29, in30};
         for(int i = 1 ; i <= 30 ; i++){
@@ -601,13 +600,16 @@ public class input extends javax.swing.JFrame {
                     // set input to green color
                     input.setBackground(Color.GREEN);
                 }
-            }
+            } 
+            System.out.print(ProjectPBO.user.getAttempt());
             if(!input.equalsIgnoreCase(kata)) {
+                ProjectPBO.user.minusOnePoint();
                 if(ProjectPBO.user.getAttempt() > 0){
-                    ProjectPBO.user.minusOnePoint();
+                    System.out.print(ProjectPBO.user.getAttempt());
                 } 
                 else{
                     this.gameOver();
+                    System.out.print(ProjectPBO.user.getAttempt());
                 }
             }
             else{
@@ -615,14 +617,14 @@ public class input extends javax.swing.JFrame {
                 this.gameOver();
             }
         }
-        
+        attempthere.setText(String.valueOf(this.attempt));
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void gameOver(){
         backButton.setVisible(true);
         t1.setVisible(false);
         jButton1.setVisible(false);
-        ProjectPBO.user.addScore(this.attempt);
+        ProjectPBO.user.addScore(ProjectPBO.user.getAttempt());
     }
     
     public ArrayList<Object[]> valid(String input){
