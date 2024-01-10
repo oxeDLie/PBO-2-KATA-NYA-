@@ -44,7 +44,7 @@ public class User {
         int scoreUpdate = this.userScore.getScore() + newScore;
         try {
             java.sql.Connection conn = Koneksi.getKoneksi();
-            PreparedStatement stmt = conn.prepareStatement("update akun set skor=? where username=? AND skor=?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE akun SET skor=? WHERE username=? AND skor=?");
             stmt.setString(1, String.valueOf(scoreUpdate));
             stmt.setString(2, this.username);
             stmt.setString(3, String.valueOf(this.userScore.getScore()));
