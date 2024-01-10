@@ -163,19 +163,22 @@ public class Login extends javax.swing.JFrame {
             String uname = username.getText();
             String pw = pass.getText();
             try {
-                String sql = "select username, skor from akun where username = '"+uname+"' AND password = "+pw+"";
+                String sql = "select id, username, skor from akun where username = '"+uname+"' AND password = "+pw+"";
                 java.sql.Connection conn = Koneksi.getKoneksi();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 java.sql.ResultSet res = stmt.executeQuery(sql);
                 if (res.next()) {    
-                    User user = new User(res.getString("username"), res.getInt("skor"));
+                    User user = new User(res.getInt("id"), res.getString("username"), res.getInt("skor"));
+                    System.out.println(res.getInt("id"));
                     System.out.println("berhasil login dengan user " + user.getUser());
                     ProjectPBO.user = user;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Username atau Password salah", "Data tak ditemukan", JOptionPane.ERROR_MESSAGE);
                 }
                 new Homepage().setVisible(true);
                 this.dispose();
             } catch (HeadlessException | SQLException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
         else {

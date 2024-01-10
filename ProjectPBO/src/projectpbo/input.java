@@ -47,6 +47,7 @@ public class input extends javax.swing.JFrame {
             PreparedStatement stmt = conn.prepareStatement(sql);
             java.sql.ResultSet result = stmt.executeQuery(sql);
             
+            // Adding data into kamus
             while (result.next()) {
                 kamus.add(result.getString("kata"));
             }
@@ -56,6 +57,8 @@ public class input extends javax.swing.JFrame {
         
         Random random = new Random();
         int randomNumber = random.nextInt(kamus.size());
+        
+        System.out.println(kamus.get(randomNumber));
         
         return kamus.get(randomNumber);
     }
@@ -608,6 +611,7 @@ public class input extends javax.swing.JFrame {
                     System.out.print(ProjectPBO.user.getAttempt());
                 } 
                 else{
+                    ProjectPBO.user.setAttempt(-1);
                     this.gameOver();
                     System.out.print(ProjectPBO.user.getAttempt());
                 }
@@ -647,7 +651,6 @@ public class input extends javax.swing.JFrame {
             }
             
         }
-        
         
         //for untuk warna kuning aja
         for(int i = 0 ; i < 5 ; i++){

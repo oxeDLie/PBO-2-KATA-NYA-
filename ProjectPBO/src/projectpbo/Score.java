@@ -16,7 +16,7 @@ public class Score {
         if(overallskor != 0){
             overallScore = overallskor;
         }
-        this.setAttempt();
+        this.setAttempt(6);
     }
     
     public int getScore(){
@@ -26,8 +26,8 @@ public class Score {
     public int getAttempt(){
         return attempt;
     }
-    public void setAttempt(){
-        this.attempt = 6;
+    public void setAttempt(int attempt){
+        this.attempt = attempt;
     }
     public void minusOnePoint(){
         if(this.attempt > 0){

@@ -5,7 +5,10 @@
 package projectpbo;
 
 import Koneksi.Koneksi;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,8 +31,7 @@ public class Leaderboard extends javax.swing.JFrame {
     }
     
     private void getLeaderboardData() {
-        String sql = "SELECT username,skor FROM peringkat "
-                + "JOIN akun ON akun.id = akun_id";
+        String sql = "SELECT username,skor FROM akun ORDER BY skor DESC";
         
         try {
             java.sql.Connection conn = Koneksi.getKoneksi();
@@ -51,15 +53,14 @@ public class Leaderboard extends javax.swing.JFrame {
     
     private void setLeaderboard() {
         int rank = 1;
-        int yPosition = 60;
+        int yPosition = 70;
         
         for (String[] data : leaderboard) {
             JPanel panel = new JPanel();
+            JPanel rankPanel = new JPanel();
             JLabel rankLabel = new JLabel();
             JLabel username = new JLabel();
             JLabel score = new JLabel();
-            
-            panel.setLayout(new FlowLayout());
             
             rankLabel.setText(Integer.toString(rank));
             username.setText(data[0]);
@@ -67,7 +68,11 @@ public class Leaderboard extends javax.swing.JFrame {
             
             panel.setBounds(10, yPosition, 498, 50);
             
-            panel.add(rankLabel);
+            styleLeaderboard(panel, rankPanel, rankLabel, username, score);
+            
+            rankPanel.add(rankLabel);
+            
+            panel.add(rankPanel);
             panel.add(username);
             panel.add(score);
             
@@ -78,6 +83,28 @@ public class Leaderboard extends javax.swing.JFrame {
             
         panelMain.validate();
         panelMain.repaint();
+    }
+    
+    private void styleLeaderboard(JPanel panel, JPanel rankPanel, JLabel rankLabel, JLabel username, JLabel score) {
+        // Panel
+        panel.setLayout(null);
+        
+        // Rank Panel
+        rankPanel.setBounds(2, 0, 50, 50);
+        rankPanel.setBackground(Color.GREEN);
+        
+        // Rank Label
+        rankLabel.setFont(new Font("sans-serif", Font.BOLD, 32));
+        rankLabel.setForeground(Color.WHITE);
+        
+        // Username
+        username.setBounds(60, 0, 250, 50);
+        username.setFont(new Font("sans-serif", Font.PLAIN, 24));
+        
+        // Score
+        score.setBounds(440, 0, 50, 50);
+        score.setFont(new Font("sans-serif", Font.BOLD, 32));
+        
     }
 
     /**
@@ -91,6 +118,7 @@ public class Leaderboard extends javax.swing.JFrame {
 
         panelMain = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,21 +128,34 @@ public class Leaderboard extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Papan Peringkat");
 
+        backButton.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        backButton.setText("<");
+        backButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
         panelMain.setLayout(panelMainLayout);
         panelMainLayout.setHorizontalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         panelMainLayout.setVerticalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(636, Short.MAX_VALUE))
+                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(643, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,42 +175,48 @@ public class Leaderboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Leaderboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Leaderboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Leaderboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Leaderboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Leaderboard().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Leaderboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Leaderboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Leaderboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Leaderboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Leaderboard().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelMain;
     // End of variables declaration//GEN-END:variables

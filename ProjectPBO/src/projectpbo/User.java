@@ -13,12 +13,18 @@ import java.sql.SQLException;
  * @author kdkfr
  */
 public class User {
+    private int id;
     private String username;
     private Score userScore;
     
-    public User(String username, int userSkor){
+    public User(int id, String username, int userSkor){
+        this.id = id;
         this.setUser(username);
         this.setSkor(userSkor);
+    }
+    
+    public int getId() {
+        return this.id;
     }
     
     public void setUser(String user){
@@ -54,6 +60,11 @@ public class User {
     public int getAttempt(){
         return this.userScore.getAttempt();
     }
+    
+    public void setAttempt(int attempt) {
+        this.userScore.setAttempt(attempt);
+    }
+    
     public void minusOnePoint(){
         this.userScore.minusOnePoint();
     }

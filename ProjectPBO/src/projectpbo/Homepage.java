@@ -4,6 +4,12 @@
  */
 package projectpbo;
 
+import Koneksi.Koneksi;
+import com.mysql.cj.conf.PropertyKey;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kdkfr
@@ -15,7 +21,7 @@ public class Homepage extends javax.swing.JFrame {
      */
     public Homepage() {
         initComponents();
-        user.setText(ProjectPBO.user.getUser());
+        user.setText("Hai, " + ProjectPBO.user.getUser());
     }
 
     /**
@@ -30,9 +36,11 @@ public class Homepage extends javax.swing.JFrame {
         user = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         papanPeringkatButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        user.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         user.setText("jLabel1");
 
         jButton1.setText("Play");
@@ -49,33 +57,44 @@ public class Homepage extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 51, 51));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Hapus Akun");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(papanPeringkatButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(papanPeringkatButton)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(25, 25, 25)))
-                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(user)
-                .addGap(106, 106, 106)
+                .addGap(35, 35, 35)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(papanPeringkatButton)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -90,6 +109,26 @@ public class Homepage extends javax.swing.JFrame {
         // TODO add your handling code here:
         new Leaderboard().setVisible(true);
     }//GEN-LAST:event_papanPeringkatButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah annda yakin ingin menghapus akun? Semua data terkait akun anda akan menghilang", "Hapus Akun", 
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        
+        if (confirm == 0) {
+            try {
+                java.sql.Connection conn = Koneksi.getKoneksi();
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM akun WHERE id=?");
+                stmt.setString(1, String.valueOf(ProjectPBO.user.getId()));
+                stmt.executeUpdate();
+
+                System.out.println("berhasil");
+            } catch (SQLException e) {
+                System.out.println("ups");
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,6 +168,7 @@ public class Homepage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton papanPeringkatButton;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
