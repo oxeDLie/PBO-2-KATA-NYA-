@@ -31,7 +31,7 @@ public class Leaderboard extends javax.swing.JFrame {
     }
     
     private void getLeaderboardData() {
-        String sql = "SELECT username,skor FROM akun ORDER BY skor DESC";
+        String sql = "SELECT username,skor FROM akun WHERE peran = 'User' ORDER BY skor DESC";
         
         try {
             java.sql.Connection conn = Koneksi.getKoneksi();
@@ -121,6 +121,7 @@ public class Leaderboard extends javax.swing.JFrame {
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         panelMain.setBackground(new java.awt.Color(255, 255, 255));
 

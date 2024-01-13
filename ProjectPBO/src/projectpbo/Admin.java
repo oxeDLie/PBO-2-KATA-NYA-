@@ -57,6 +57,7 @@ public class Admin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -263,7 +264,7 @@ public class Admin extends javax.swing.JFrame {
         try {
             java.sql.Connection conn = Koneksi.getKoneksi();
             PreparedStatement stmt = conn.prepareStatement("UPDATE kamus SET kata=? WHERE id_kata=?");
-            stmt.setString(1, kata.getText());
+           stmt.setString(1, kata.getText());
             stmt.setString(2, id.getText());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Pesan", JOptionPane.INFORMATION_MESSAGE);
@@ -301,8 +302,13 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
-        // TODO add your handling code here:
-            this.dispose();
+        ProjectPBO.user = null;
+        
+        Login LoginFrame = new Login();
+        LoginFrame.setVisible(true);
+        LoginFrame.pack();
+        LoginFrame.setLocationRelativeTo(null); // center
+        this.dispose();
     }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void TableKamusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableKamusMouseClicked
